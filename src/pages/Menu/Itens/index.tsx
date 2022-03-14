@@ -1,7 +1,8 @@
 // eslint rule - {...currentItem} - o ideal seria passar um por um
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect, useState } from 'react';
-import menu from './itens.json';
+import { useEffect, useState } from 'react';
+import menu from 'data/menu.json';
+import { Menu } from 'types/Order';
 import Item from './Item';
 import styles from './itens.module.scss';
 
@@ -24,7 +25,7 @@ export default function Itens({ search, filter, ordered }: Props) {
     return true;
   }
 
-  function order(newList: typeof menu) {
+  function order(newList: Menu) {
     switch (ordered) {
       case 'portion':
         return newList.sort((a, b) => (a.size > b.size ? 1 : -1));

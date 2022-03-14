@@ -1,9 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
+import { Filter } from 'types/Order';
 import filters from './filters.json';
 import styles from './Filters.module.scss';
 
-type IOption = typeof filters[0];
+type IOption = Filter;
 
 interface Props {
   filter: number | null;

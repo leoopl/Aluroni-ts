@@ -1,15 +1,22 @@
-import React from 'react';
-import classNames from 'classnames';
+/* eslint-disable react/jsx-props-no-spreading */
+import Tags from 'components/Tags';
+import { useNavigate } from 'react-router-dom';
+import { Order } from 'types/Order';
 import styles from './item.module.scss';
-import menu from '../itens.json';
 
-type Props = typeof menu[0];
+type Props = Order;
 
 export default function Item(props: Props) {
-  const { title, description, photo, price, serving, size, category } = props;
+  const { id, title, description, photo } = props;
+  const navigate = useNavigate();
+
   return (
-    <div className={styles.item}>
-      <div className={styles.item__image}>
+    <div
+      className={styles.item}
+      role="presentation"
+      onClick={() => navigate(`/order/${id}`)}
+    >
+      <div className={styles.item__imagem}>
         <img src={photo} alt={title} />
       </div>
       <div className={styles.item__descricao}>
@@ -17,21 +24,7 @@ export default function Item(props: Props) {
           <h2>{title}</h2>
           <p>{description}</p>
         </div>
-        <div className={styles.item__tags}>
-          <div
-            className={classNames({
-              [styles.item__tipo]: true,
-              [styles[`item__tipo__${category.label.toLowerCase()}`]]: true,
-            })}
-          >
-            {category.label}
-          </div>
-          <div className={styles.item__porcao}>{size}g</div>
-          <div className={styles.item__qtdpessoas}>
-            Serve {serving} pessoa{serving === 1 ? '' : 's'}
-          </div>
-          <div className={styles.item__valor}>R$ {price.toFixed(2)}</div>
-        </div>
+        <Tags {...props} />
       </div>
     </div>
   );
